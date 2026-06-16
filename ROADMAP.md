@@ -9,8 +9,8 @@
 
 ## Phase 2: Real Contact Capture
 
-- Replace placeholder WhatsApp, email, or form links with real contact destinations.
-- Decide whether inbound demo requests should go to WhatsApp, email, Google Forms, Tally, or Airtable.
+- Keep validation requests routed through real WhatsApp and email links.
+- Decide whether a future intake form should use Google Forms, Tally, Airtable, or a small backend.
 - Add a simple owner-facing intake flow if validation conversations justify it.
 
 ## Phase 3: Supabase Or Database Persistence

@@ -7,6 +7,15 @@ interface QuickRepliesProps {
   onSelect: (prompt: string) => void;
 }
 
+const copy = {
+  en: {
+    ariaLabel: "Demo scenarios",
+  },
+  es: {
+    ariaLabel: "Escenarios de demo",
+  },
+} satisfies Record<Language, Record<string, string>>;
+
 export function QuickReplies({
   language,
   options,
@@ -14,7 +23,7 @@ export function QuickReplies({
   onSelect,
 }: QuickRepliesProps) {
   return (
-    <div className="quick-replies" aria-label="Demo scenarios">
+    <div className="quick-replies" aria-label={copy[language].ariaLabel}>
       {options.map((option) => (
         <button
           className="quick-reply"

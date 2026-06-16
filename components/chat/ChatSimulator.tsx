@@ -46,6 +46,11 @@ const uiCopy = {
     scenarioLabel: "Guided scenario",
     scenarioPrompt: "Suggested patient message",
     sendScenario: "Send scenario",
+    dayDivider: "Today",
+    now: "Now",
+    typing: "Receptionist is typing",
+    demoAria: "WhatsApp receptionist demo",
+    languageToggleAria: "Chat language",
   },
   es: {
     welcome: `Hola, bienvenido a ${clinicProfile.name}. Puedo responder preguntas comunes o tomar una solicitud de cita para el equipo de la clínica.`,
@@ -56,6 +61,11 @@ const uiCopy = {
     scenarioLabel: "Escenario guiado",
     scenarioPrompt: "Mensaje sugerido del paciente",
     sendScenario: "Enviar escenario",
+    dayDivider: "Hoy",
+    now: "Ahora",
+    typing: "El recepcionista está escribiendo",
+    demoAria: "Demo de recepcionista por WhatsApp",
+    languageToggleAria: "Idioma del chat",
   },
 } satisfies Record<Language, Record<string, string>>;
 
@@ -189,7 +199,7 @@ export function ChatSimulator({
   const scenarioPrompt = getScenarioPrompt(scenarioId, language);
 
   return (
-    <section className="demo-grid" aria-label="WhatsApp receptionist demo">
+    <section className="demo-grid" aria-label={uiCopy[language].demoAria}>
       <div className="phone-frame">
         <header className="chat-header">
           <div className="avatar" aria-hidden="true">
@@ -199,7 +209,10 @@ export function ChatSimulator({
             <h2>{clinicProfile.name}</h2>
             <p>{uiCopy[language].status}</p>
           </div>
-          <div className="language-toggle" aria-label="Chat language">
+          <div
+            className="language-toggle"
+            aria-label={uiCopy[language].languageToggleAria}
+          >
             {(["en", "es"] as Language[]).map((option) => (
               <button
                 aria-pressed={language === option}
@@ -215,13 +228,16 @@ export function ChatSimulator({
         </header>
 
         <div className="chat-window" aria-live="polite" ref={chatWindowRef}>
-          <div className="day-divider">Today</div>
+          <div className="day-divider">{uiCopy[language].dayDivider}</div>
           {messages.map((message) => (
             <MessageBubble key={message.id} message={message} />
           ))}
           {isTyping ? (
             <div className="message-row">
-              <div className="typing-indicator" aria-label="Receptionist is typing">
+              <div
+                className="typing-indicator"
+                aria-label={uiCopy[language].typing}
+              >
                 <span />
                 <span />
                 <span />
@@ -275,6 +291,7 @@ export function ChatSimulator({
 
       <LeadSummaryPanel
         conversationState={conversationState}
+        language={language}
         leads={leads}
         onReset={handleReset}
       />
@@ -297,7 +314,7 @@ function getInitialMessages(language: Language): ChatMessage[] {
       id: `welcome-${language}`,
       sender: "bot",
       text: uiCopy[language].welcome,
-      timestamp: "Now",
+      timestamp: uiCopy[language].now,
     },
   ];
 }

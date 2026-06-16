@@ -14,7 +14,7 @@ This MVP shows:
 - Structured lead capture for name, phone, service needed, and preferred appointment time.
 - Human escalation for uncertain or complex questions.
 - A clinic owner dashboard with leads, hot leads, common questions, and follow-up needs.
-- A local demo request form plus placeholder real-contact links for validation.
+- Real WhatsApp and email contact links for validation.
 
 ## Tech Stack
 
@@ -78,7 +78,7 @@ Reset clears localStorage data for:
 
 - Captured leads
 - Conversation events
-- Local demo request submissions
+- Any legacy local demo request submissions
 
 Seeded dashboard examples remain available as fallback so the dashboard still looks useful after reset.
 
@@ -99,15 +99,14 @@ The current `next.config.mjs` uses:
 output: "export"
 ```
 
-## Real Validation Contact Placeholders
+## Real Validation Contact
 
-The request demo CTA includes placeholders that should be replaced before sharing publicly:
+The request demo CTA includes direct contact links for real validation:
 
-- `https://wa.me/YOUR_PHONE_NUMBER`
-- `mailto:your-email@example.com`
-- `https://forms.gle/YOUR_FORM_LINK`
+- WhatsApp: `https://wa.me/18092975310`
+- Email: `mailto:jhoanmiguel06@gmail.com`
 
-The local form still stores fake submissions in localStorage for demo purposes only.
+There is no public request form because this static MVP does not send form submissions anywhere. The Google Form/Tally-style link is hidden until a real form URL is available.
 
 ## Current Limitations
 

@@ -1360,9 +1360,11 @@ dd {
 
 .cta-container {
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(340px, 0.7fr);
+  grid-template-columns: minmax(0, 780px);
+  justify-content: center;
   gap: 24px;
   align-items: center;
+  text-align: center;
 }
 
 .cta-container h2,
@@ -1378,6 +1380,10 @@ dd {
 .cta-copy {
   display: grid;
   gap: 18px;
+}
+
+.public-contact-cta {
+  justify-items: center;
 }
 
 .request-demo-form {
@@ -1409,7 +1415,12 @@ dd {
 .real-contact-links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
+}
+
+.public-contact-links {
+  gap: 12px;
 }
 
 .real-contact-links a {
@@ -1423,6 +1434,29 @@ dd {
   font-size: 0.82rem;
   font-weight: 900;
   text-decoration: none;
+}
+
+.real-contact-link.primary {
+  background: white;
+  border-color: white;
+  color: #0f5f46;
+  min-height: 48px;
+  padding: 0 20px;
+  font-size: 0.96rem;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+.real-contact-link.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  min-height: 48px;
+  padding: 0 18px;
+  font-size: 0.92rem;
+}
+
+.cta-note {
+  margin: 0 auto;
+  font-size: 0.95rem;
+  font-weight: 800;
 }
 
 .request-demo-form h3 {

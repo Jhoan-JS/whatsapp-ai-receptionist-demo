@@ -72,7 +72,7 @@ export function DemoHome() {
             <h2 id="patient-chat-title">{chat.headline}</h2>
             <p>{chat.description}</p>
           </div>
-          <ChatSimulator />
+          <ChatSimulator initialLanguage={language} />
         </div>
       </section>
       <DemoCTA language={language} />

@@ -43,14 +43,14 @@ Use this before showing the MVP to a clinic owner.
 
 ## Request Demo
 
-- Request demo form accepts clinic name, contact, phone, email, language, and message.
-- Submitted request is stored in localStorage.
-- Success message appears after submit.
-- Placeholder real-contact links are visible for WhatsApp, email, and form.
+- Public request demo CTA shows WhatsApp as the primary action.
+- Public request demo CTA shows email as the secondary action.
+- No localStorage request form appears in the main public CTA.
+- Placeholder form link is hidden until a real form URL is available.
 
 ## Reset
 
 - Reset demo clears captured leads.
 - Reset demo clears conversation events.
-- Reset demo clears stored demo requests.
+- Reset demo clears any legacy local demo request entries.
 - Seeded dashboard fallback still appears after reset.
