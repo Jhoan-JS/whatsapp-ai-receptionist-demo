@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChatSimulator } from "@/components/chat/ChatSimulator";
 import { demoContent } from "@/lib/demoContent";
 import type { Language } from "@/types/chat";
@@ -17,6 +17,19 @@ export function DemoHome() {
   const [language, setLanguage] = useState<Language>("en");
   const nav = demoContent.nav[language];
   const chat = demoContent.chatSection[language];
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setLanguage(params.get("lang") === "es" ? "es" : "en");
+  }, []);
+
+  function handleLanguageChange(nextLanguage: Language) {
+    setLanguage(nextLanguage);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", nextLanguage);
+    window.history.replaceState(null, "", url);
+  }
 
   return (
     <main className="demo-landing">
@@ -43,7 +56,7 @@ export function DemoHome() {
                   aria-pressed={language === option}
                   className={language === option ? "sales-language-active" : ""}
                   key={option}
-                  onClick={() => setLanguage(option)}
+                  onClick={() => handleLanguageChange(option)}
                   type="button"
                 >
                   {option.toUpperCase()}

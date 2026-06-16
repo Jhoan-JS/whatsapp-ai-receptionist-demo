@@ -27,7 +27,7 @@ export const demoContent = {
     },
     es: {
       patientChat: "Demo de chat del paciente",
-      dashboard: "Panel del dueño",
+      dashboard: "Panel del dueño de la clínica",
       requestDemo: "Solicitar demo",
       languageLabel: "Idioma del demo comercial",
     },
@@ -56,11 +56,11 @@ export const demoContent = {
       eyebrow: "Demo para clínica dental",
       headline: "Deja de perder pacientes por respuestas lentas",
       subheadline:
-        "Este recepcionista de IA responde al instante, captura solicitudes de cita, identifica leads calientes y le dice a tu equipo quién necesita seguimiento.",
+        "Este recepcionista de IA responde al instante, captura solicitudes de cita, identifica prospectos de alta intención y le dice a tu equipo quién necesita seguimiento.",
       primaryCta: "Iniciar demo del paciente",
       secondaryCta: "Ver panel del dueño",
       proofPoints: [
-        { value: "24/7", label: "respuestas instantáneas a FAQs" },
+        { value: "24/7", label: "respuestas instantáneas a preguntas frecuentes" },
         { value: "4 datos", label: "capturados por solicitud de cita" },
         { value: "Diario", label: "resumen listo para el dueño" },
       ],
@@ -116,14 +116,14 @@ export const demoContent = {
             "Precios, horario, ubicación, seguro, servicios, métodos de pago y emergencias se responden al instante.",
         },
         {
-          title: "Captura el lead",
+          title: "Captura el prospecto",
           description:
             "Nombre, teléfono, servicio de interés y horario preferido se recopilan de forma estructurada.",
         },
         {
           title: "Resalta lo importante",
           description:
-            "Los leads calientes y preguntas inciertas se muestran para que el equipo sepa a quien llamar primero.",
+            "Los prospectos de alta intención y las preguntas inciertas se muestran para que el equipo sepa a quién llamar primero.",
         },
       ],
     },
@@ -173,19 +173,19 @@ export const demoContent = {
             "Los pacientes preguntan fuera de horario, esperan demasiado y reservan con la próxima clínica que responde.",
         },
         {
-          title: "Intencion de cita perdida",
+          title: "Intención de cita perdida",
           description:
             "Un paciente dice que quiere una visita, pero nadie recopila los datos necesarios para dar seguimiento.",
         },
         {
-          title: "Sin cola de escalación",
+          title: "Sin cola de revisión humana",
           description:
             "Las preguntas complejas quedan mezcladas con mensajes rutinarios en vez de ser revisadas por el equipo.",
         },
         {
           title: "Sin resumen diario",
           description:
-            "El dueño no puede ver rápidamente nuevos leads, leads calientes y oportunidades pendientes.",
+            "El dueño no puede ver rápidamente nuevos prospectos, oportunidades de alta intención y seguimientos pendientes.",
         },
       ],
     },
@@ -235,13 +235,13 @@ export const demoContent = {
         ],
       },
       after: {
-        label: "Despues",
+        label: "Después",
         title: "Demo de recepcionista IA",
         items: [
           "Respuestas instantáneas a preguntas comunes",
           "Solicitudes de cita estructuradas",
-          "Leads capturados con servicio y horario preferido",
-          "Cola de escalación para preguntas inciertas",
+          "Prospectos capturados con servicio y horario preferido",
+          "Cola de revisión humana para preguntas inciertas",
           "Resumen del dueño con quién necesita seguimiento",
         ],
       },
@@ -307,7 +307,7 @@ export const demoContent = {
           id: "pricing",
           title: "Preguntar precios",
           description:
-            "Muestra respuestas instantáneas a FAQs y una invitación para capturar una cita.",
+            "Muestra respuestas instantáneas a preguntas frecuentes y una invitación para capturar una cita.",
         },
         {
           id: "appointment",
@@ -325,13 +325,13 @@ export const demoContent = {
           id: "complex",
           title: "Hacer una pregunta compleja",
           description:
-            "Muestra escalación humana segura en vez de que el bot adivine.",
+            "Muestra revisión humana segura en vez de que el bot adivine.",
         },
         {
           id: "dashboard",
           title: "Ver resumen del dueño",
           description:
-            "Muestra leads capturados, leads calientes, preguntas frecuentes y seguimiento pendiente.",
+            "Muestra prospectos capturados, oportunidades de alta intención, preguntas frecuentes y seguimiento pendiente.",
         },
       ],
     },
@@ -386,13 +386,13 @@ export const demoContent = {
           number: "2",
           title: "El recepcionista responde o toma datos",
           description:
-            "FAQs, solicitudes de cita y captura de leads viven en un flujo simple.",
+            "Preguntas frecuentes, solicitudes de cita y captura de prospectos viven en un flujo simple.",
         },
         {
           number: "3",
           title: "Los eventos se convierten en información",
           description:
-            "El panel resume leads, oportunidades calientes, preguntas comunes y necesidades de escalación.",
+            "El panel resume prospectos, oportunidades de alta intención, preguntas comunes y necesidades de revisión humana.",
         },
       ],
     },
@@ -421,15 +421,6 @@ export const demoContent = {
       headline: "Request a demo",
       description:
         "Want to see how this would work for a dental clinic? Message me directly and I will walk you through the demo.",
-      formTitle: "Local demo only request form",
-      clinicName: "Clinic name",
-      contactName: "Contact name",
-      phone: "Phone or WhatsApp",
-      email: "Email",
-      preferredLanguage: "Preferred language",
-      message: "Message",
-      submitButton: "Save local demo request",
-      success: "Saved locally only. This does not send data.",
       primaryButton: "Request demo on WhatsApp",
       secondaryButton: "Send email",
       realContactTitle: "Real validation contact",
@@ -444,15 +435,6 @@ export const demoContent = {
       headline: "Solicitar demo",
       description:
         "¿Quieres ver cómo funcionaría para una clínica dental? Escríbeme directamente y te muestro el demo.",
-      formTitle: "Formulario local de demo",
-      clinicName: "Nombre de la clínica",
-      contactName: "Nombre de contacto",
-      phone: "Teléfono o WhatsApp",
-      email: "Email",
-      preferredLanguage: "Idioma preferido",
-      message: "Mensaje",
-      submitButton: "Guardar solicitud local",
-      success: "Guardado solo localmente. Esto no envía datos.",
       primaryButton: "Solicitar demo por WhatsApp",
       secondaryButton: "Enviar correo",
       realContactTitle: "Contacto real para validación",
@@ -461,7 +443,7 @@ export const demoContent = {
       whatsappLink: "Contactar por WhatsApp",
       emailLink: "Enviar email",
       footnote:
-        "Solo demo. Respuestas, leads, eventos y resúmenes se simulan localmente sin integraciones externas.",
+        "Solo demo. Respuestas, prospectos, eventos y resúmenes se simulan localmente sin integraciones externas.",
     },
   } satisfies Localized<Record<string, string>>,
 };

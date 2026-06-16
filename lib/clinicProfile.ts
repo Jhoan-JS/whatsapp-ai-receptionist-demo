@@ -94,7 +94,7 @@ export const quickReplyOptions: QuickReplyOption[] = [
   {
     label: {
       en: "Ask about emergency",
-      es: "Preguntar emergencia",
+      es: "Preguntar por emergencia",
     },
     prompt: {
       en: "Do you handle dental emergencies?",

@@ -5,6 +5,7 @@ Use this before showing the MVP to a clinic owner.
 ## Landing
 
 - English landing page loads with the sales message.
+- `/?lang=es` loads the landing page in Spanish.
 - Spanish toggle updates the sales copy.
 - Navigation links work: patient chat, owner dashboard, request demo.
 - Mobile layout has no horizontal overflow.
@@ -52,5 +53,4 @@ Use this before showing the MVP to a clinic owner.
 
 - Reset demo clears captured leads.
 - Reset demo clears conversation events.
-- Reset demo clears any legacy local demo request entries.
 - Seeded dashboard fallback still appears after reset.

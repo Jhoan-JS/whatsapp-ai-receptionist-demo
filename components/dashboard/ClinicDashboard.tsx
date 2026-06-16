@@ -30,6 +30,7 @@ const copy = {
     valueStrong: "No missed opportunities:",
     valueBody:
       "the receptionist turns late replies, FAQ chats, urgent questions, and appointment requests into a clear follow-up queue.",
+    valueAria: "Demo value statement",
     summaryAria: "Dashboard summary",
     leadManagementAria: "Lead management",
   },
@@ -45,6 +46,7 @@ const copy = {
     valueStrong: "Sin oportunidades perdidas:",
     valueBody:
       "el recepcionista convierte respuestas tardías, preguntas frecuentes, urgencias y solicitudes de cita en una cola clara de seguimiento.",
+    valueAria: "Mensaje de valor del demo",
     summaryAria: "Resumen diario",
     leadManagementAria: "Gestión de prospectos",
   },
@@ -145,7 +147,7 @@ export function ClinicDashboard() {
         </div>
       </header>
 
-      <section className="value-banner" aria-label="Demo value statement">
+      <section className="value-banner" aria-label={text.valueAria}>
         <strong>{text.valueStrong}</strong>
         <span>{text.valueBody}</span>
       </section>

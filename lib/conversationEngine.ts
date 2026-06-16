@@ -102,7 +102,7 @@ const localizedCopy = {
     capturedMiddle: "He registrado tu solicitud para",
     capturedAround: "alrededor de",
     capturedFollowUp:
-      "El equipo de la clínica recibiría este lead y daría seguimiento para confirmar disponibilidad.",
+      "El equipo de la clínica recibiría este prospecto y daría seguimiento para confirmar disponibilidad.",
     serviceFallback: "Solicitud dental general",
     unknownPatient: "Paciente sin nombre",
     notProvided: "No proporcionado",

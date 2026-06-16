@@ -46,6 +46,7 @@ npm run dev
 ## Available Routes
 
 - `/` - Sales-ready demo landing page
+- `/?lang=es` - Spanish sales-ready demo landing page
 - `/chat` - Patient chat simulator
 - `/dashboard` - Clinic owner dashboard
 
@@ -78,7 +79,6 @@ Reset clears localStorage data for:
 
 - Captured leads
 - Conversation events
-- Any legacy local demo request submissions
 
 Seeded dashboard examples remain available as fallback so the dashboard still looks useful after reset.
 
@@ -106,7 +106,7 @@ The request demo CTA includes direct contact links for real validation:
 - WhatsApp: `https://wa.me/18092975310`
 - Email: `mailto:jhoanmiguel06@gmail.com`
 
-There is no public request form because this static MVP does not send form submissions anywhere. The Google Form/Tally-style link is hidden until a real form URL is available.
+There is no public request form because this static MVP does not send form submissions anywhere. No Google Form/Tally link is shown until a real form URL is available.
 
 ## Current Limitations
 

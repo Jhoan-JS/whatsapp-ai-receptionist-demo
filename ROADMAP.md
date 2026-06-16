@@ -16,7 +16,7 @@
 ## Phase 3: Supabase Or Database Persistence
 
 - Replace localStorage leads and events with Supabase or another simple database.
-- Store leads, events, demo requests, and clinic profile settings.
+- Store leads, events, contact requests, and clinic profile settings.
 - Keep the schema small and focused on one clinic or pilot account.
 
 ## Phase 4: OpenAI-Powered Assistant

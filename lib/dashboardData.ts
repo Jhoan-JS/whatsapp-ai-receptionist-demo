@@ -34,7 +34,7 @@ const sourceLabels: Record<Language, Record<Lead["source"], string>> = {
   },
   es: {
     demo_chat: "Simulador de chat",
-    demo_seed: "Ejemplo demo",
+    demo_seed: "Ejemplo de demo",
   },
 };
 
@@ -49,7 +49,7 @@ const conversationLabels: Record<Language, Record<ConversationType, string>> = {
     appointment_request: "Solicitud de cita",
     complex_question: "Pregunta compleja",
     emergency: "Consulta de emergencia",
-    faq: "Conversación de FAQ",
+    faq: "Conversación de preguntas frecuentes",
   },
 };
 
@@ -86,7 +86,7 @@ const intentLabels: Record<Language, Record<ConversationIntent, string>> = {
     hours: "Horario",
     human_escalation: "Revisión humana",
     insurance: "Seguro",
-    lead_completed: "Leads completados",
+    lead_completed: "Capturas completadas",
     location: "Ubicación",
     payment_methods: "Métodos de pago",
     prices: "Precios",
@@ -114,7 +114,7 @@ const summaryCopy = {
     hotLeads: "Prospectos calientes",
     hotLeadsDetail: "Conversaciones urgentes o de alta intención",
     humanEscalations: "Seguimiento humano",
-    humanEscalationsDetail: "Necesita revisión del equipo en vez de adivinar",
+    humanEscalationsDetail: "Necesitan revisión del equipo en vez de adivinar",
   },
 } satisfies Record<Language, Record<string, string>>;
 
@@ -206,7 +206,7 @@ export function getDemoSeedLeads(language: Language = "en"): Lead[] {
         conversationType: "emergency",
         needsHumanFollowUp: true,
         isHot: true,
-        questionTopic: "Emergencia",
+        questionTopic: "Emergencia dental",
         notes:
           "La paciente reportó hinchazón y pidió disponibilidad para el mismo día. Buen ejemplo de seguimiento urgente.",
         lastMessage:
@@ -241,7 +241,7 @@ export function getDemoSeedLeads(language: Language = "en"): Lead[] {
         conversationType: "faq",
         needsHumanFollowUp: false,
         isHot: true,
-        questionTopic: "Precios",
+        questionTopic: "Consulta de precios",
         notes:
           "Hizo varias preguntas de precios y mostró interés en blanqueamiento antes de un evento.",
         lastMessage:
@@ -532,7 +532,7 @@ export function getLeadTags(
 
   if (lead.isHot) {
     tags.push({
-      label: language === "es" ? "Prospecto caliente" : "Hot Lead",
+      label: language === "es" ? "Prospecto de alta intención" : "Hot Lead",
       tone: "warm",
     });
   }
