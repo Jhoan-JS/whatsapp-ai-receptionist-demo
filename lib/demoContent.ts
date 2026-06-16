@@ -426,6 +426,8 @@ export const demoContent = {
       realContactTitle: "Real validation contact",
       realContactBody:
         "No setup required for the demo. I’ll show you how it works in 3 minutes.",
+      trustDisclaimer:
+        "This is a validation demo. A real version would be customized to each clinic’s services, hours, policies, and approved responses. Medical questions or emergencies should always be escalated to the human team.",
       whatsappLink: "Contact by WhatsApp",
       emailLink: "Send email",
       footnote:
@@ -440,6 +442,8 @@ export const demoContent = {
       realContactTitle: "Contacto real para validación",
       realContactBody:
         "No necesitas configurar nada para ver la demo. Te muestro cómo funciona en 3 minutos.",
+      trustDisclaimer:
+        "Esta es una demo de validación. La versión real se adaptaría a las respuestas, horarios, servicios y políticas de cada clínica. Las consultas médicas o emergencias siempre deben escalarse al equipo humano.",
       whatsappLink: "Contactar por WhatsApp",
       emailLink: "Enviar email",
       footnote:

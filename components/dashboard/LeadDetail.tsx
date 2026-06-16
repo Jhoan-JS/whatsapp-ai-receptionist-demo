@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import {
   getConversationTypeLabel,
   getLeadTags,
@@ -24,6 +27,11 @@ const copy = {
     humanFollowUp: "Human follow-up",
     yes: "Yes",
     no: "No",
+    leadActions: "Lead actions",
+    call: "Call",
+    whatsapp: "WhatsApp",
+    copyPhone: "Copy phone",
+    copied: "Copied",
     lastMessage: "Last patient message",
     staffNote: "Staff note",
   },
@@ -41,6 +49,11 @@ const copy = {
     humanFollowUp: "Seguimiento humano",
     yes: "Sí",
     no: "No",
+    leadActions: "Acciones del prospecto",
+    call: "Llamar",
+    whatsapp: "WhatsApp",
+    copyPhone: "Copiar teléfono",
+    copied: "Copiado",
     lastMessage: "Último mensaje del paciente",
     staffNote: "Nota para el equipo",
   },
@@ -48,6 +61,31 @@ const copy = {
 
 export function LeadDetail({ lead, language }: LeadDetailProps) {
   const text = copy[language];
+  const [wasCopied, setWasCopied] = useState(false);
+  const phoneDigits = useMemo(() => getPhoneDigits(lead?.phone || ""), [lead]);
+  const hasUsablePhone = phoneDigits.length >= 7;
+  const phoneHref = hasUsablePhone ? `tel:${phoneDigits}` : undefined;
+  const whatsappHref = hasUsablePhone
+    ? `https://wa.me/${formatWhatsAppDigits(phoneDigits)}`
+    : undefined;
+
+  useEffect(() => {
+    setWasCopied(false);
+  }, [lead?.id]);
+
+  async function handleCopyPhone() {
+    if (!lead?.phone || !navigator.clipboard) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(lead.phone);
+      setWasCopied(true);
+      window.setTimeout(() => setWasCopied(false), 1600);
+    } catch {
+      setWasCopied(false);
+    }
+  }
 
   if (!lead) {
     return (
@@ -78,6 +116,36 @@ export function LeadDetail({ lead, language }: LeadDetailProps) {
             {tag.label}
           </span>
         ))}
+      </div>
+
+      <div className="lead-action-row" aria-label={text.leadActions}>
+        {phoneHref ? (
+          <a className="lead-action-link" href={phoneHref}>
+            {text.call}
+          </a>
+        ) : (
+          <span className="lead-action-disabled">{text.call}</span>
+        )}
+        {whatsappHref ? (
+          <a
+            className="lead-action-link lead-action-whatsapp"
+            href={whatsappHref}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {text.whatsapp}
+          </a>
+        ) : (
+          <span className="lead-action-disabled">{text.whatsapp}</span>
+        )}
+        <button
+          className="lead-action-button"
+          disabled={!hasUsablePhone}
+          onClick={handleCopyPhone}
+          type="button"
+        >
+          {wasCopied ? text.copied : text.copyPhone}
+        </button>
       </div>
 
       <dl className="detail-list">
@@ -127,4 +195,16 @@ function formatLeadTime(value: string, language: Language) {
     month: "short",
     day: "numeric",
   }).format(new Date(value));
+}
+
+function getPhoneDigits(value: string) {
+  return value.replace(/\D/g, "");
+}
+
+function formatWhatsAppDigits(value: string) {
+  if (value.length === 10) {
+    return `1${value}`;
+  }
+
+  return value;
 }

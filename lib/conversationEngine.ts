@@ -38,20 +38,21 @@ const localizedCopy = {
       "Absolutely. I can collect the appointment request and send it to the clinic team.",
     restart:
       "Something went off track. Let's restart the appointment request.",
-    priceIntro: `Here is the approximate self-pay price guide for ${clinicProfile.name}:`,
-    priceOutro:
-      "Final pricing depends on the dentist's evaluation and insurance coverage.",
+    priceReply:
+      "Prices can vary depending on the evaluation and treatment needed. If you want, I can collect your information so the clinic team can confirm pricing and availability.",
     appointmentNudge:
       "Would you like me to collect your details for an appointment request?",
+    emergencyReply:
+      "If you have severe pain, major swelling, bleeding, dental trauma, or an urgent dental emergency, the safest option is to contact the clinic directly or visit an emergency center. I can collect your information for follow-up, but I should not diagnose you here.",
+    emergencyOffer:
+      "Would you like me to collect your information so the team can follow up?",
     hours: `Our hours are ${clinicProfile.hours.weekdays.en}, ${clinicProfile.hours.saturday.en}, and ${clinicProfile.hours.sunday.en}.`,
     location: `${clinicProfile.name} is located at ${clinicProfile.location}.`,
     servicesIntro: "We can help with",
     servicesOutro:
       "If you want, I can collect a quick appointment request for the clinic team.",
-    emergencyOutro:
-      "If you want an emergency appointment request, send me the patient's name and I will start the request.",
     unknown:
-      "I am not fully sure about that, so I would flag this for a human team member instead of guessing.",
+      "That question should be reviewed by the clinic team. To avoid giving incorrect information, I'll mark it for human follow-up.",
     unknownFollowUp:
       "For the demo, this conversation would appear in the clinic's follow-up queue as Needs human review.",
     cancelLeadCapture:
@@ -61,6 +62,16 @@ const localizedCopy = {
     capturedAround: "around",
     capturedFollowUp:
       "The clinic team would now receive this lead and follow up to confirm availability.",
+    leadCompleted: (name: string) =>
+      `All set, ${name}. We will send your request to the clinic team so they can confirm availability.`,
+    invalidName:
+      "I want to make sure I save the patient name correctly. What is the patient's name?",
+    invalidPhone:
+      "That does not look like a phone number yet. What phone or WhatsApp number should the clinic use?",
+    invalidService:
+      "I want to save the service clearly. What dental service do you need?",
+    invalidPreferredTime:
+      "What day and time would you prefer for the appointment?",
     serviceFallback: "General dental request",
     unknownPatient: "Unknown patient",
     notProvided: "Not provided",
@@ -80,20 +91,21 @@ const localizedCopy = {
       "Claro. Puedo tomar la solicitud de cita y enviarla al equipo de la clínica.",
     restart:
       "Algo se salió del flujo. Vamos a reiniciar la solicitud de cita.",
-    priceIntro: `Esta es una guía aproximada de precios sin seguro para ${clinicProfile.name}:`,
-    priceOutro:
-      "El precio final depende de la evaluación del dentista y la cobertura del seguro.",
+    priceReply:
+      "Los precios pueden variar según la evaluación y el tipo de tratamiento. Si deseas, puedo tomar tus datos para que el equipo de la clínica te confirme el costo y disponibilidad.",
     appointmentNudge:
       "¿Quieres que tome tus datos para solicitar una cita?",
+    emergencyReply:
+      "Si tienes dolor fuerte, inflamación severa, sangrado, golpe en un diente o una emergencia dental, lo más seguro es contactar directamente a la clínica o acudir a un centro de emergencia. Puedo tomar tus datos para que el equipo te dé seguimiento, pero no debo darte un diagnóstico por aquí.",
+    emergencyOffer:
+      "¿Quieres que tome tus datos para que el equipo te contacte?",
     hours: `Nuestro horario es ${clinicProfile.hours.weekdays.es}, ${clinicProfile.hours.saturday.es} y ${clinicProfile.hours.sunday.es}.`,
     location: `${clinicProfile.name} está ubicada en ${clinicProfile.location}.`,
     servicesIntro: "Podemos ayudar con",
     servicesOutro:
       "Si quieres, puedo tomar una solicitud rápida de cita para el equipo de la clínica.",
-    emergencyOutro:
-      "Si quieres solicitar una cita de emergencia, envíame el nombre del paciente y empiezo la solicitud.",
     unknown:
-      "No estoy totalmente seguro sobre eso, así que lo marcaría para que una persona del equipo lo revise en vez de adivinar.",
+      "Esa consulta necesita revisión del equipo de la clínica. Para evitar darte una información incorrecta, la marcaré para seguimiento humano.",
     unknownFollowUp:
       "Para el demo, esta conversación aparecería en la cola de seguimiento como Necesita revisión humana.",
     cancelLeadCapture:
@@ -103,6 +115,16 @@ const localizedCopy = {
     capturedAround: "alrededor de",
     capturedFollowUp:
       "El equipo de la clínica recibiría este prospecto y daría seguimiento para confirmar disponibilidad.",
+    leadCompleted: (name: string) =>
+      `Listo, ${name}. Enviaremos tu solicitud al equipo de la clínica para confirmar disponibilidad.`,
+    invalidName:
+      "Quiero guardar bien el nombre del paciente. ¿Cuál es tu nombre?",
+    invalidPhone:
+      "Ese dato todavía no parece un número de teléfono. ¿Cuál es tu número de teléfono o WhatsApp?",
+    invalidService:
+      "Quiero guardar el servicio de forma clara. ¿Qué servicio necesitas?",
+    invalidPreferredTime:
+      "¿Qué día y hora prefieres para la cita?",
     serviceFallback: "Solicitud dental general",
     unknownPatient: "Paciente sin nombre",
     notProvided: "No proporcionado",
@@ -117,7 +139,7 @@ const localizedCopy = {
     appointmentTopic: "Solicitud de cita",
     humanTopic: "Revisión humana",
   },
-} satisfies Record<Language, Record<string, string>>;
+} satisfies Record<Language, Record<string, string | ((name: string) => string)>>;
 
 const fieldOrder: LeadCaptureField[] = [
   "name",
@@ -198,9 +220,18 @@ function continueLeadCapture(
     return idleReply([localizedCopy[language].restart]);
   }
 
+  const validatedField = validateLeadField(field, userText, language);
+
+  if (!validatedField.isValid) {
+    return {
+      botMessages: [validatedField.message],
+      nextState: state,
+    };
+  }
+
   const updatedDraft = {
     ...state.leadDraft,
-    [field]: userText.trim(),
+    [field]: validatedField.value,
   };
   const nextField = getNextLeadField(updatedDraft);
 
@@ -219,7 +250,7 @@ function continueLeadCapture(
 
   return {
     botMessages: [
-      `${localizedCopy[language].capturedPrefix}, ${capturedLead.name}. ${localizedCopy[language].capturedMiddle} ${capturedLead.service} ${localizedCopy[language].capturedAround} ${capturedLead.preferredTime}.`,
+      getLeadCompletionMessage(capturedLead.name, language),
       localizedCopy[language].capturedFollowUp,
     ],
     nextState: initialConversationState,
@@ -245,7 +276,7 @@ function buildFaqReply(
   if (intent === "prices") {
     return idleReply(
       [
-        `${copy.priceIntro} ${clinicProfile.priceGuide[language].join("; ")}. ${copy.priceOutro}`,
+        copy.priceReply,
         copy.appointmentNudge,
       ],
       faqEvent(userText, intent, copy.pricingTopic),
@@ -284,8 +315,11 @@ function buildFaqReply(
 
   if (intent === "emergency") {
     return idleReply(
-      [clinicProfile.emergency[language], copy.emergencyOutro],
-      faqEvent(userText, intent, copy.emergencyTopic),
+      [copy.emergencyReply, copy.emergencyOffer],
+      {
+        ...faqEvent(userText, intent, copy.emergencyTopic),
+        needsHumanFollowUp: true,
+      },
       appointmentConfirmationState(userText, copy.emergencyTopic),
     );
   }
@@ -330,6 +364,255 @@ function buildLead(draft: LeadDraft, language: Language): Lead {
     questionTopic: localizedCopy[language].appointmentTopic,
     language,
   };
+}
+
+type ValidationResult =
+  | {
+      isValid: true;
+      value: string;
+    }
+  | {
+      isValid: false;
+      message: string;
+    };
+
+function validateLeadField(
+  field: LeadCaptureField,
+  userText: string,
+  language: Language,
+): ValidationResult {
+  const value = sanitizeLeadText(userText);
+
+  if (!value) {
+    return invalidField(field, language);
+  }
+
+  if (field === "name") {
+    return validateLeadName(value, language);
+  }
+
+  if (field === "phone") {
+    return validateLeadPhone(value, language);
+  }
+
+  if (field === "service") {
+    return validateLeadService(value, language);
+  }
+
+  return validatePreferredTime(value, language);
+}
+
+function validateLeadName(value: string, language: Language): ValidationResult {
+  const normalized = normalize(value);
+
+  if (
+    hasPhoneDigits(value) ||
+    !hasLetters(value) ||
+    normalized.length < 2 ||
+    isGenericAppointmentPhrase(normalized) ||
+    isFaqQuestion(value, normalized)
+  ) {
+    return invalidField("name", language);
+  }
+
+  return {
+    isValid: true,
+    value,
+  };
+}
+
+function validateLeadPhone(value: string, language: Language): ValidationResult {
+  const digits = getDigits(value);
+
+  if (digits.length < 7) {
+    return invalidField("phone", language);
+  }
+
+  return {
+    isValid: true,
+    value,
+  };
+}
+
+function validateLeadService(
+  value: string,
+  language: Language,
+): ValidationResult {
+  const normalized = normalize(value);
+
+  if (
+    hasPhoneDigits(value) ||
+    !hasLetters(value) ||
+    normalized.length < 3 ||
+    isGenericAppointmentPhrase(normalized) ||
+    isFaqQuestion(value, normalized, ["services", "emergency"])
+  ) {
+    return invalidField("service", language);
+  }
+
+  const serviceNames = clinicProfile.services[language].map((service) =>
+    normalize(service),
+  );
+  const isKnownService = serviceNames.some(
+    (service) => service.includes(normalized) || normalized.includes(service),
+  );
+
+  if (isKnownService || isReasonableServiceText(normalized)) {
+    return {
+      isValid: true,
+      value,
+    };
+  }
+
+  return invalidField("service", language);
+}
+
+function validatePreferredTime(
+  value: string,
+  language: Language,
+): ValidationResult {
+  const normalized = normalize(value);
+
+  if (
+    !hasLetters(value) ||
+    normalized.length < 2 ||
+    hasPhoneDigits(value) ||
+    isFaqQuestion(value, normalized)
+  ) {
+    return invalidField("preferredTime", language);
+  }
+
+  return {
+    isValid: true,
+    value,
+  };
+}
+
+function invalidField(
+  field: LeadCaptureField,
+  language: Language,
+): ValidationResult {
+  const messages: Record<LeadCaptureField, string> = {
+    name: localizedCopy[language].invalidName as string,
+    phone: localizedCopy[language].invalidPhone as string,
+    service: localizedCopy[language].invalidService as string,
+    preferredTime: localizedCopy[language].invalidPreferredTime as string,
+  };
+
+  return {
+    isValid: false,
+    message: messages[field],
+  };
+}
+
+function sanitizeLeadText(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function hasLetters(value: string) {
+  return /[a-zA-Z\u00C0-\u024F]/.test(value);
+}
+
+function getDigits(value: string) {
+  return value.replace(/\D/g, "");
+}
+
+function hasPhoneDigits(value: string) {
+  return getDigits(value).length >= 7;
+}
+
+function isFaqQuestion(
+  value: string,
+  normalized: string,
+  allowedIntents: ConversationIntent[] = [],
+) {
+  if (/[?¿]/.test(value)) {
+    return true;
+  }
+
+  const intent = classifyFaqIntent(normalized);
+
+  return Boolean(intent && !allowedIntents.includes(intent));
+}
+
+function isGenericAppointmentPhrase(normalized: string) {
+  return matchesAny(normalized, [
+    "appointment",
+    "request appointment",
+    "want appointment",
+    "want an appointment",
+    "book appointment",
+    "book an appointment",
+    "schedule appointment",
+    "schedule an appointment",
+    "need appointment",
+    "need an appointment",
+    "cita",
+    "solicitar cita",
+    "solicitar una cita",
+    "quiero cita",
+    "quiero una cita",
+    "quiero solicitar",
+    "agendar cita",
+    "agendar una cita",
+    "programar cita",
+    "programar una cita",
+    "reservar cita",
+    "reservar una cita",
+  ]);
+}
+
+function isReasonableServiceText(normalized: string) {
+  if (
+    matchesAny(normalized, [
+      "no se",
+      "no estoy seguro",
+      "not sure",
+      "no idea",
+      "whatever",
+    ])
+  ) {
+    return false;
+  }
+
+  return matchesAny(normalized, [
+    "cleaning",
+    "limpieza",
+    "whitening",
+    "blanqueamiento",
+    "filling",
+    "empaste",
+    "root canal",
+    "endodoncia",
+    "braces",
+    "brackets",
+    "aligner",
+    "alineador",
+    "crown",
+    "corona",
+    "evaluation",
+    "evaluacion",
+    "consult",
+    "consulta",
+    "pain",
+    "dolor",
+    "swelling",
+    "inflamacion",
+    "hinchazon",
+    "emergency",
+    "emergencia",
+    "tooth",
+    "diente",
+    "muela",
+    "dental",
+  ]);
+}
+
+function getLeadCompletionMessage(name: string, language: Language) {
+  const message = localizedCopy[language].leadCompleted;
+  const firstName = name.split(" ")[0] || name;
+
+  return typeof message === "function" ? message(firstName) : message;
 }
 
 function handlePendingAppointmentConfirmation(

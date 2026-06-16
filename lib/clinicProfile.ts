@@ -49,23 +49,17 @@ export const clinicProfile = {
     es: "Los pacientes pueden pagar con tarjeta, efectivo, Zelle y la mayoría de tarjetas HSA/FSA. Puede haber planes de pago para tratamientos grandes.",
   },
   emergency: {
-    en: "For severe pain, swelling, bleeding, or dental trauma, we recommend requesting an emergency visit. If symptoms are life-threatening, call emergency services first.",
-    es: "Para dolor fuerte, hinchazón, sangrado o trauma dental, recomendamos solicitar una visita de emergencia. Si los síntomas ponen en riesgo la vida, llama primero a emergencias.",
+    en: "If you have severe pain, major swelling, bleeding, dental trauma, or an urgent dental emergency, contact the clinic directly or visit an emergency center.",
+    es: "Si tienes dolor fuerte, inflamación severa, sangrado, golpe en un diente o una emergencia dental, contacta directamente a la clínica o acude a un centro de emergencia.",
   },
   priceGuide: {
     en: [
-      "Routine cleaning: about $90 to $150 without insurance",
-      "Teeth whitening: about $250 to $450",
-      "Filling: about $150 to $350 depending on size and material",
-      "Emergency evaluation: about $75 to $125",
-      "Root canal: usually starts around $850, depending on the tooth",
+      "Prices vary depending on the evaluation and treatment needed",
+      "The clinic team should confirm pricing and availability before treatment",
     ],
     es: [
-      "Limpieza rutinaria: aprox. $90 a $150 sin seguro",
-      "Blanqueamiento dental: aprox. $250 a $450",
-      "Empaste: aprox. $150 a $350 según tamaño y material",
-      "Evaluación de emergencia: aprox. $75 a $125",
-      "Endodoncia: usualmente empieza alrededor de $850, según la pieza dental",
+      "Los precios varían según la evaluación y el tratamiento necesario",
+      "El equipo de la clínica debe confirmar costo y disponibilidad antes del tratamiento",
     ],
   },
 };

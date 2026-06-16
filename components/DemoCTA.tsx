@@ -36,6 +36,7 @@ export function DemoCTA({ language }: DemoCTAProps) {
             </a>
           </div>
           <p className="cta-note">{content.realContactBody}</p>
+          <p className="trust-disclaimer">{content.trustDisclaimer}</p>
         </div>
       </div>
     </section>

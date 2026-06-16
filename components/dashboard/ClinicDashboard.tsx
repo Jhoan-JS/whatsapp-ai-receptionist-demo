@@ -57,11 +57,16 @@ export function ClinicDashboard() {
   const [storedLeads, setStoredLeads] = useState<Lead[]>([]);
   const [storedEvents, setStoredEvents] = useState<ConversationEvent[]>([]);
   const [selectedLeadId, setSelectedLeadId] = useState<string | undefined>();
+  const [hasLoadedStoredData, setHasLoadedStoredData] = useState(false);
   const [wasReset, setWasReset] = useState(false);
 
   useEffect(() => {
-    setStoredLeads(readStoredLeads());
+    const initialStoredLeads = readStoredLeads();
+
+    setStoredLeads(initialStoredLeads);
     setStoredEvents(readStoredEvents());
+    setSelectedLeadId(initialStoredLeads[0]?.id);
+    setHasLoadedStoredData(true);
   }, []);
 
   useEffect(() => {
@@ -86,10 +91,10 @@ export function ClinicDashboard() {
     dashboardLeads[0];
 
   useEffect(() => {
-    if (!selectedLeadId && dashboardLeads[0]) {
+    if (hasLoadedStoredData && !selectedLeadId && dashboardLeads[0]) {
       setSelectedLeadId(dashboardLeads[0].id);
     }
-  }, [dashboardLeads, selectedLeadId]);
+  }, [dashboardLeads, hasLoadedStoredData, selectedLeadId]);
 
   function handleResetDemo() {
     resetLocalDemoData();
